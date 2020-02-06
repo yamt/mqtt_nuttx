@@ -61,8 +61,6 @@ COBJS = $(CSRCS:.c=$(OBJEXT))
 SRCS = $(ASRCS) $(CSRCS)
 OBJS = $(AOBJS) $(COBJS)
 
-BIN = libmbedtls.a
-
 DEPPATH = --dep-path .
 
 include $(APPDIR)/Application.mk

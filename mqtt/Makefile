@@ -75,6 +75,4 @@ COBJS = $(CSRCS:.c=$(OBJEXT))
 SRCS = $(ASRCS) $(CSRCS)
 OBJS = $(AOBJS) $(COBJS)
 
-BIN = libmqtt.a
-
 include $(APPDIR)/Application.mk
