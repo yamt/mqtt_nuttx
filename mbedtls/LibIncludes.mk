@@ -34,8 +34,8 @@
 ############################################################################
 
 ifeq ($(CONFIG_EXTERNALS_MBEDTLS),y)
-CFLAGS   += ${shell $(INCDIR) $(INCDIROPT) "$(CC)" "$(SDKDIR)/../externals/mbedtls/include"}
-CXXFLAGS += ${shell $(INCDIR) $(INCDIROPT) "$(CC)" "$(SDKDIR)/../externals/mbedtls/include"}
+CFLAGS   += ${shell $(INCDIR) $(INCDIROPT) "$(CC)" "$(APPDIR)/external/mbedtls/include"}
+CXXFLAGS += ${shell $(INCDIR) $(INCDIROPT) "$(CC)" "$(APPDIR)/external/mbedtls/include"}
 endif
 
 

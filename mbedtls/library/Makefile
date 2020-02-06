@@ -36,6 +36,7 @@
 # Do not change
 
 -include $(TOPDIR)/Make.defs
+include $(APPDIR)/external/mbedtls/LibIncludes.mk
 DELIM ?= $(strip /)
 CXXEXT ?= .cpp
 
