@@ -1,0 +1,3 @@
+ifneq ($(CONFIG_EXTERNALS_MBEDTLS),)
+CONFIGURED_APPS += $(APPDIR)/external/mbedtls
+endif
