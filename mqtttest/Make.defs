@@ -1,0 +1,3 @@
+ifneq ($(CONFIG_EXTERNALS_MQTTTEST),)
+CONFIGURED_APPS += $(APPDIR)/external/mqtttest
+endif
