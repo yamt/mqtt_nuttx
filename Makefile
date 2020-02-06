@@ -1,3 +1,3 @@
-MENUDESC = "Externel"
+MENUDESC = "External"
 
 include $(APPDIR)/Directory.mk
