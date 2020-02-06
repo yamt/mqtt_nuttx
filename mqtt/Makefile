@@ -36,7 +36,8 @@
 # Do not change
 
 -include $(TOPDIR)/Make.defs
--include $(SDKDIR)/Make.defs
+include $(APPDIR)/external/mqtt/LibIncludes.mk
+
 DELIM ?= $(strip /)
 CXXEXT ?= .cpp
 
@@ -75,45 +76,4 @@ OBJS = $(AOBJS) $(COBJS)
 
 BIN = libmqtt.a
 
-# Common build
-
-all: $(BIN)
-.PHONY: context depend clean distclean
-
-$(AOBJS): %$(OBJEXT): %.S
-	$(call ASSEMBLE, $<, $@)
-
-$(COBJS): %$(OBJEXT): %.c
-	$(call COMPILE, $<, $@)
-
-$(BIN): $(OBJS)
-	$(call ARCHIVE, $@, $(OBJS))
-
-# Create dependencies
-
-.depend: Makefile $(SRCS)
-	$(Q) $(MKDEP) $(DEPPATH) "$(CC)" -- $(CFLAGS) -- $(SRCS) >Make.dep
-	$(Q) touch $@
-
-depend: .depend
-
-# context target proceeds before depend. User can be used this rule
-# to prerequisite process (e.g. generate header file).
-
-.context:
-	$(Q) touch $@
-
-context:
-
-clean:
-	$(call DELFILE, $(BIN))
-	$(call CLEAN)
-
-distclean: clean
-	$(call DELFILE, .context)
-	$(call DELFILE, Make.dep)
-	$(call DELFILE, .depend)
-
--include Make.dep
-.PHONY: preconfig
-preconfig:
+include $(APPDIR)/Application.mk
