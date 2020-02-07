@@ -1,7 +1,7 @@
 
 -include $(TOPDIR)/Make.defs
 include $(APPDIR)/external/mqtt/LibIncludes.mk
-# include $(APPDIR)/external/mbedtls/LibIncludes.mk
+include $(APPDIR)/external/mbedtls/LibIncludes.mk
 
 DELIM ?= $(strip /)
 
