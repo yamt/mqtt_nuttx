@@ -71,7 +71,7 @@ main(int argc, FAR char *argv[])
 	MQTTSocketInit(&s, 0);
 	rc = MQTTSocketConnect(&s, host, port);
 	printf("MQTTSocketConnect: %d\n", rc);
-	if (rc != SUCCESS) {
+	if (rc < 0) {
 		xerrx(1, "MQTTSocketConnect failed with %d", rc);
 	}
 
