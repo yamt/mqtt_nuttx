@@ -64,8 +64,10 @@ main(int argc, FAR char *argv[])
 	const char *user = getenv("MQTT_USERNAME");
 	const char *pass = getenv("MQTT_PASSWORD");
 	const char *topic = xgetenv("MQTT_TOPIC");
+	const char *payload = getenv("MQTT_PAYLOAD");
 
 	unsigned int timeout = 1000; /* in ms */
+	int qos = QOS0;
 	int rc;
 
 	MQTTSocket s;
@@ -93,20 +95,35 @@ main(int argc, FAR char *argv[])
 		xerrx(1, "MQTTConnect failed with %d", rc);
 	}
 
-	rc = MQTTSubscribe(&c, topic, QOS0, onMessage);
-	printf("MQTTSubscribe: %d\n", rc);
-	if (rc != SUCCESS) {
-		xerrx(1, "MQTTSubscribe failed with %d", rc);
-	}
-
-	for (;;) {
-		rc = MQTTYield(&c, timeout);
+	if (payload == NULL) {
+		rc = MQTTSubscribe(&c, topic, qos, onMessage);
+		printf("MQTTSubscribe: %d\n", rc);
 		if (rc != SUCCESS) {
-			printf("MQTTYield: %d\n", rc);
-			sleep(1);
+			xerrx(1, "MQTTSubscribe failed with %d", rc);
+		}
+
+		for (;;) {
+			rc = MQTTYield(&c, timeout);
+			if (rc != SUCCESS) {
+				printf("MQTTYield: %d\n", rc);
+				sleep(1);
+			}
+		}
+		/* NOTREACHED */
+	} else {
+		MQTTMessage msg;
+
+		memset(&msg, 0, sizeof(msg));
+		msg.payload = payload;
+		msg.payloadlen = strlen(payload);
+		msg.qos = qos;
+		msg.retained = 0;
+		msg.dup = 0;
+		rc = MQTTPublish(&c, topic, &msg);
+		printf("MQTTPublish: %d\n", rc);
+		if (rc != SUCCESS) {
+			xerrx(1, "MQTTPublish failed with %d", rc);
 		}
 	}
-
-	/* NOTREACHED */
 	return 0;
 }
