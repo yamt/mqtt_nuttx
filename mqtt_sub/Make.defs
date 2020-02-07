@@ -1,3 +1,3 @@
-ifneq ($(CONFIG_EXTERNALS_MQTTTEST),)
-CONFIGURED_APPS += $(APPDIR)/external/mqtttest
+ifneq ($(CONFIG_EXTERNALS_MQTT_SUB),)
+CONFIGURED_APPS += $(APPDIR)/external/mqtt_sub
 endif
