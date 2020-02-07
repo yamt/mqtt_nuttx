@@ -3,6 +3,6 @@
 # see the file kconfig-language.txt in the NuttX tools repository.
 #
 
-config EXTERNALS_MQTT_SUB
-	bool "MQTT subscribe test application"
+config EXTERNALS_MQTT_PUBSUB
+	bool "MQTT pub/sub test application"
 	default n
