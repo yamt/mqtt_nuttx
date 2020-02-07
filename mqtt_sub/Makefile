@@ -12,8 +12,7 @@ PRIORITY = SCHED_PRIORITY_DEFAULT
 STACKSIZE = 2048
 MODULE = CONFIG_EXTERNALS_MQTT_SUB
 
-# CSRCS += test.c
-MAINSRC = test_main.c
+MAINSRC = main.c
 
 CFLAGS += -Werror
 CFLAGS += -Wno-discarded-qualifiers  # api workaround
