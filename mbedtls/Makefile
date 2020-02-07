@@ -14,5 +14,8 @@ install:
 clean:
 	$(Q) $(MAKE) -C $(SRCDIR) TOPDIR=$(TOPDIR) $@
 
+distclean:
+	$(Q) $(MAKE) -C $(SRCDIR) TOPDIR=$(TOPDIR) $@
+
 preconfig:
 	$(Q) $(MAKE) -C $(SRCDIR) TOPDIR=$(TOPDIR) $@
