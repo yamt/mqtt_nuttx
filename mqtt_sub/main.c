@@ -46,7 +46,10 @@ onMessage(MessageData* md)
 {
 	const MQTTMessage* message = md->message;
 
-	printf("onMessage: %.*s",
+	printf("onMessage: topic=%s, id=%d, qos=%d, payload=%.*s\n",
+		md->topicName->cstring,
+		message->id,
+		message->qos,
 		(int)message->payloadlen, (char*)message->payload);
 }
 
