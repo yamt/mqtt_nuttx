@@ -50,7 +50,9 @@ main(int argc, FAR char *argv[])
 {
 	const char *host = xgetenv("MQTT_HOST");
 	const unsigned int port = xgetenv_int("MQTT_PORT");
-	const char *user = xgetenv("MQTT_USERNAME");
+	const char *client_id = getenv("MQTT_CLIENTID");
+	const char *user = getenv("MQTT_USERNAME");
+	const char *pass = getenv("MQTT_PASSWORD");
 	const char *topic = xgetenv("MQTT_TOPIC");
 
 	unsigned int timeout = 1000; /* in ms */
@@ -68,7 +70,9 @@ main(int argc, FAR char *argv[])
 				   recvbuf, sizeof(recvbuf));
 
 	MQTTPacket_connectData conndata = MQTTPacket_connectData_initializer;
+	conndata.clientID.cstring = client_id;
 	conndata.username.cstring = user;
+	conndata.password.cstring = pass;
 	rc = MQTTConnect(&c, &conndata);
 	printf("MQTTConnect: %d\n", rc);
 
