@@ -3,18 +3,23 @@
 
 #include <stdarg.h>
 #include <stdlib.h>
+#include <unistd.h>
 
 #include <MQTTClient.h>
 #include <MQTTConnect.h>
+
+static const char *progname;
 
 static void
 xerrx(int eval, const char *fmt, ...)
 {
 	va_list ap;
 
+	fprintf(stderr, "%s: ", progname);
 	va_start(ap, fmt);
 	vfprintf(stderr, fmt, ap);
 	va_end(ap);
+	fprintf(stderr, "\n");
 
 	exit(eval);
 }
@@ -48,6 +53,8 @@ onMessage(MessageData* md)
 int
 main(int argc, FAR char *argv[])
 {
+	progname = argv[0];
+
 	const char *host = xgetenv("MQTT_HOST");
 	const unsigned int port = xgetenv_int("MQTT_PORT");
 	const char *client_id = getenv("MQTT_CLIENTID");
@@ -62,7 +69,11 @@ main(int argc, FAR char *argv[])
 	MQTTClient c;
 
 	MQTTSocketInit(&s, 0);
-	MQTTSocketConnect(&s, host, port);
+	rc = MQTTSocketConnect(&s, host, port);
+	printf("MQTTSocketConnect: %d\n", rc);
+	if (rc != SUCCESS) {
+		xerrx(1, "MQTTSocketConnect failed with %d", rc);
+	}
 
 	unsigned char sendbuf[256];
 	unsigned char recvbuf[256];
@@ -75,13 +86,22 @@ main(int argc, FAR char *argv[])
 	conndata.password.cstring = pass;
 	rc = MQTTConnect(&c, &conndata);
 	printf("MQTTConnect: %d\n", rc);
+	if (rc != SUCCESS) {
+		xerrx(1, "MQTTConnect failed with %d", rc);
+	}
 
 	rc = MQTTSubscribe(&c, topic, QOS0, onMessage);
 	printf("MQTTSubscribe: %d\n", rc);
+	if (rc != SUCCESS) {
+		xerrx(1, "MQTTSubscribe failed with %d", rc);
+	}
 
 	for (;;) {
 		rc = MQTTYield(&c, timeout);
-		printf("MQTTYield: %d\n", rc);
+		if (rc != SUCCESS) {
+			printf("MQTTYield: %d\n", rc);
+			sleep(1);
+		}
 	}
 
 	/* NOTREACHED */
