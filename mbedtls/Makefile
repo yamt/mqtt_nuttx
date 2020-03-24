@@ -19,3 +19,6 @@ distclean:
 
 preconfig:
 	$(Q) $(MAKE) -C $(SRCDIR) TOPDIR=$(TOPDIR) $@
+
+depend:
+	$(Q) $(MAKE) -C $(SRCDIR) TOPDIR=$(TOPDIR) $@
