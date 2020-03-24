@@ -138,6 +138,12 @@ int MQTTSocket_read(MQTTSocket* n, unsigned char* buffer, int len, int timeout_m
 		rc = recv(n->my_socket, buffer + recvLen, len - recvLen, 0);
 		if (rc > 0)
 			recvLen += rc;
+		else if (rc == 0)
+		{
+			/* EOF is unrecoverable */
+			recvLen = -1;
+			break;
+		}
 		else if ((rc < 0) && (errno != EAGAIN))
 		{
 			recvLen = rc;
