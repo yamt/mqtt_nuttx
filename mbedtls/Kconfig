@@ -6,6 +6,7 @@
 config EXTERNALS_MBEDTLS
 	bool "mbed TLS Library"
 	default n
+	select CLOCK_MONOTONIC
 	---help---
 		Enable mbed TLS Library.
 		And when you select this, make sure CONFIG_LTE_NET_MBEDTLS is disabled. Those are exclusive items.
