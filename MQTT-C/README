@@ -1,0 +1,5 @@
+Check out MQTT-C source tree in this directory.
+
+    git checkout https://github.com/LiamBindle/MQTT-C
+
+You can use a symlink on unix-like operating systems.
