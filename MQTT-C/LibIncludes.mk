@@ -34,7 +34,9 @@
 ############################################################################
 
 ifeq ($(CONFIG_EXTERNALS_MQTTC),y)
+CFLAGS   += -DMQTT_USE_MBEDTLS
 CFLAGS   += ${shell $(INCDIR) $(INCDIROPT) "$(CC)" "$(APPDIR)/external/MQTT-C/MQTT-C/include"}
+CXXFLAGS += -DMQTT_USE_MBEDTLS
 CXXFLAGS += ${shell $(INCDIR) $(INCDIROPT) "$(CC)" "$(APPDIR)/external/MQTT-C/MQTT-C/include"}
 endif
 
