@@ -1,0 +1,12 @@
+#
+# For a description of the syntax of this configuration file,
+# see the file kconfig-language.txt in the NuttX tools repository.
+#
+
+config EXTERNALS_MQTTC
+	bool "MQTT-C"
+	default n
+	---help---
+		A portable MQTT C client for embedded systems and PCs alike.
+		https://github.com/LiamBindle/MQTT-C
+

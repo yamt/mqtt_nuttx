@@ -1,0 +1,3 @@
+ifneq ($(CONFIG_EXTERNALS_MQTTC),)
+CONFIGURED_APPS += $(APPDIR)/external/MQTT-C
+endif
